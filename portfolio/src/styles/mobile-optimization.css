@@ -1,0 +1,326 @@
+/* Mobile Optimization Styles */
+.mobile-optimized * {
+  scroll-behavior: smooth;
+}
+
+/* Touch-friendly improvements */
+@media (max-width: 768px) {
+  /* Hero Section Mobile Optimization */
+  .hero-container {
+    grid-template-columns: 1fr !important;
+    text-align: center;
+    gap: 40px !important;
+  }
+  
+  .hero-avatar {
+    order: -1 !important;
+  }
+  
+  .avatar-container {
+    width: 220px !important;
+    height: 220px !important;
+  }
+  
+  .avatar-badge {
+    bottom: 10px !important;
+    right: 10px !important;
+    padding: 8px 12px !important;
+    font-size: 0.75rem !important;
+  }
+  
+  .hero-title {
+    font-size: 2.5rem !important;
+    line-height: 1.2 !important;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.3rem !important;
+    margin-bottom: 20px !important;
+  }
+  
+  .hero-description {
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+  }
+  
+  .hero-contact-info {
+    margin-bottom: 25px !important;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    gap: 15px !important;
+  }
+  
+  .hero-btn {
+    width: 100% !important;
+    justify-content: center;
+  }
+  
+  /* Portfolio Section Mobile Optimization */
+  .portfolio-section {
+    padding: 60px 0 0 0 !important;
+  }
+  
+  .products-thumbnails {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 15px !important;
+    gap: 10px !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start !important;
+  }
+  
+  .product-thumbnail {
+    flex: 0 0 100px !important;
+    scroll-snap-align: start;
+  }
+  
+  .preview-main-container {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  
+  .sample-images-sidebar {
+    margin-top: 20px !important;
+  }
+  
+  .sample-images-vertical {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+  
+  .preview-navigation {
+    flex-direction: column;
+    gap: 12px !important;
+  }
+  
+  .preview-nav {
+    width: 100% !important;
+    margin-left: 0 !important;
+  }
+  
+  /* Logo Designs Mobile Optimization */
+  .logo-designs-section {
+    padding: 60px 0 0 0 !important;
+  }
+  
+  .logo-thumbnails {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 15px !important;
+    gap: 10px !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start !important;
+  }
+  
+  .logo-thumbnail {
+    flex: 0 0 100px !important;
+    scroll-snap-align: start;
+  }
+  
+  .mockups-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+  
+  .color-palette-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+  
+  .logo-preview-navigation {
+    flex-direction: column;
+    gap: 12px !important;
+  }
+  
+  .logo-preview-nav {
+    width: 100% !important;
+    margin-left: 0 !important;
+  }
+  
+  /* Skills Section Mobile Optimization */
+  .skills-section {
+    padding: 60px 0 !important;
+  }
+  
+  .skills-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  
+  .skill-card {
+    padding: 25px !important;
+  }
+  
+  .skill-icon {
+    width: 60px !important;
+    height: 60px !important;
+    font-size: 1.4rem !important;
+  }
+  
+  .skill-name {
+    font-size: 1.4rem !important;
+  }
+  
+  .skill-description {
+    font-size: 0.95rem !important;
+  }
+  
+  /* Header Mobile Optimization */
+  .header-container {
+    flex-direction: column;
+    gap: 15px !important;
+    padding: 15px 20px !important;
+  }
+  
+  .header-nav {
+    width: 100%;
+    justify-content: space-between;
+    gap: 5px !important;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 5px;
+  }
+  
+  .nav-link {
+    font-size: 0.85rem !important;
+    white-space: nowrap;
+    padding: 8px 12px;
+  }
+  
+  /* Footer Mobile Optimization */
+  .footer-section {
+    padding: 60px 0 40px !important;
+    margin-top: 60px !important;
+  }
+  
+  .footer-content {
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+  }
+  
+  .footer-links {
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+  }
+  
+  .links-column {
+    gap: 12px !important;
+  }
+  
+  /* Common Mobile Improvements */
+  .section-header {
+    margin-bottom: 40px !important;
+  }
+  
+  h1, h2, h3 {
+    line-height: 1.3 !important;
+  }
+  
+  /* Prevent image distortion */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Improve form elements */
+  input, textarea, select {
+    font-size: 16px !important; /* Prevents iOS zoom on focus */
+  }
+  
+  /* Better scrollbar for mobile */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+/* Ultra-mobile optimizations for small screens */
+@media (max-width: 375px) {
+  .hero-title {
+    font-size: 2rem !important;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.1rem !important;
+  }
+  
+  .section-title {
+    font-size: 1.8rem !important;
+  }
+  
+  .section-subtitle {
+    font-size: 0.85rem !important;
+  }
+  
+  .product-thumbnail,
+  .logo-thumbnail {
+    flex: 0 0 80px !important;
+  }
+  
+  .mockups-grid,
+  .sample-images-vertical {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .color-palette-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+  
+  .color-swatch {
+    width: 50px !important;
+    height: 50px !important;
+  }
+}
+
+/* Fix for iOS Safari */
+@supports (-webkit-touch-callout: none) {
+  .hero-section {
+    min-height: -webkit-fill-available;
+  }
+  
+  body {
+    min-height: -webkit-fill-available;
+  }
+}
+
+/* Fix for Android Chrome */
+@supports not (-webkit-touch-callout: none) {
+  body {
+    min-height: 100vh;
+  }
+}
+
+/* Performance optimizations */
+@media (max-width: 768px) {
+  /* Reduce expensive CSS effects */
+  .skill-card:hover,
+  .model-card:hover,
+  .product-thumbnail:hover,
+  .logo-thumbnail:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+  
+  /* Simplify gradients */
+  .hero-section::before,
+  .portfolio-section::before,
+  .skills-section::before,
+  .logo-designs-section::before,
+  .threeD-models-section::before {
+    background: rgba(255, 255, 255, 0.05) !important;
+  }
+  
+  /* Reduce border-radius for performance */
+  .skill-card,
+  .model-card-inner,
+  .design-showcase,
+  .logo-showcase {
+    border-radius: 12px !important;
+  }
+}

@@ -141,3 +141,66 @@ body {
   background: rgba(255, 255, 255, 0.05);
   transform: translateY(-3px);
 }
+
+/* Mobile Optimization - Add these to base.css */
+
+/* Disable heavy animations on mobile */
+@media (max-width: 768px) {
+  * {
+    animation-duration: 0.3s !important;
+    transition-duration: 0.2s !important;
+  }
+  
+  /* Improve touch targets */
+  button, 
+  .nav-link,
+  .product-thumbnail,
+  .logo-thumbnail {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Reduce blur effects for performance */
+  .products-thumbnails,
+  .logo-thumbnails,
+  .avatar-badge {
+    backdrop-filter: blur(5px);
+  }
+  
+  /* Optimize for mobile scrolling */
+  html {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  body {
+    overscroll-behavior-y: contain;
+  }
+}
+
+/* Ultra-compact mobile styles */
+@media (max-width: 480px) {
+  /* Reduce all font sizes for better fit */
+  .section-title {
+    font-size: 2rem !important;
+  }
+  
+  .section-subtitle {
+    font-size: 0.9rem !important;
+  }
+  
+  /* Reduce padding for more screen space */
+  .design-showcase,
+  .logo-showcase,
+  .skill-card,
+  .footer-container {
+    padding: 20px 15px !important;
+  }
+  
+  /* Stack everything vertically */
+  .showcase-content,
+  .logo-showcase-content,
+  .footer-content {
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+  }
+}

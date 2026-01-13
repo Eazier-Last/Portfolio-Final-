@@ -1,10 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/hero.css';
 
 const HeroSection = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <section className="hero-section" id="home">
       <div className="hero-container">
+        {isMobile && (
+          <div className="hero-avatar mobile-first">
+            <div className="avatar-container">
+              <img 
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400"
+                alt="Ezekiel Labay"
+                className="avatar-image"
+              />
+              <div className="avatar-decoration"></div>
+              
+              <div className="avatar-badge">
+                <div className="availability-dot"></div>
+                <span className="availability-text">Available for hire</span>
+              </div>
+            </div>
+          </div>
+        )}
+        
         <div className="hero-content">
           <h1 className="hero-title">
             Hello, I'm <br />
@@ -16,7 +47,7 @@ const HeroSection = () => {
           </h2>
           
           <p className="hero-description">
-           IT graduate with hands‑on experience from freelance work and a corporate internship. I create clean, effective logos and branding that help businesses grow and connect.
+            IT graduate with hands‑on experience from freelance work and a corporate internship. I create clean, effective logos and branding that help businesses grow and connect.
           </p>
           
           <div className="hero-contact-info">
@@ -45,8 +76,8 @@ const HeroSection = () => {
                 <path d="M12 13a3 3 0 100-6 3 3 0 000 6z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
               <span className="contact-text">
-  Available for Remote Work <br />based in Batangas, Philippines
-</span>
+                Available for Remote Work <br />based in Batangas, Philippines
+              </span>
             </div>
           </div>
           
@@ -63,21 +94,23 @@ const HeroSection = () => {
           </div>
         </div>
         
-        <div className="hero-avatar">
-          <div className="avatar-container">
-            <img 
-              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400"
-              alt="Ezekiel Labay"
-              className="avatar-image"
-            />
-            <div className="avatar-decoration"></div>
-            
-            <div className="avatar-badge">
-              <div className="availability-dot"></div>
-              <span className="availability-text">Available for hire</span>
+        {!isMobile && (
+          <div className="hero-avatar">
+            <div className="avatar-container">
+              <img 
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400"
+                alt="Ezekiel Labay"
+                className="avatar-image"
+              />
+              <div className="avatar-decoration"></div>
+              
+              <div className="avatar-badge">
+                <div className="availability-dot"></div>
+                <span className="availability-text">Available for hire</span>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
       
       <div className="scroll-indicator">

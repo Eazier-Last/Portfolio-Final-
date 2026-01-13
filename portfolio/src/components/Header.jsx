@@ -3,6 +3,19 @@ import '../styles/header.css';
 
 const Header = () => {
   const [activeLink, setActiveLink] = useState('home');
+  const [isMobile, setIsMobile] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   
   const navItems = [
     { id: 'home', label: 'Home' },
@@ -15,10 +28,11 @@ const Header = () => {
   const handleClick = (id, e) => {
     e.preventDefault();
     setActiveLink(id);
+    setMenuOpen(false);
     
     const element = document.getElementById(id);
     if (element) {
-      const headerHeight = 100;
+      const headerHeight = isMobile ? 140 : 100;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
       
@@ -33,7 +47,6 @@ const Header = () => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY + window.innerHeight / 3;
       
-      // Create an array of section positions
       const sections = navItems
         .map(item => {
           const element = document.getElementById(item.id);
@@ -47,7 +60,6 @@ const Header = () => {
         })
         .filter(section => section !== null);
       
-      // Find the current active section
       let currentSection = 'home';
       
       for (let i = 0; i < sections.length; i++) {
@@ -62,7 +74,6 @@ const Header = () => {
       setActiveLink(currentSection);
     };
 
-    // Use requestAnimationFrame for smoother performance
     let ticking = false;
     const throttledScroll = () => {
       if (!ticking) {
@@ -75,8 +86,6 @@ const Header = () => {
     };
 
     window.addEventListener('scroll', throttledScroll, { passive: true });
-    
-    // Initial check
     handleScroll();
     
     return () => window.removeEventListener('scroll', throttledScroll);
@@ -90,18 +99,51 @@ const Header = () => {
           <span className="logo-name">Ezekiel Labay</span>
         </div>
         
-        <nav className="header-nav">
-          {navItems.map((item) => (
-            <a
-              key={item.id}
-              href={`#${item.id}`}
-              className={`nav-link ${activeLink === item.id ? 'active' : ''}`}
-              onClick={(e) => handleClick(item.id, e)}
+        {isMobile ? (
+          <>
+            <button 
+              className="mobile-menu-toggle"
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label="Toggle menu"
             >
-              {item.label}
-            </a>
-          ))}
-        </nav>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                {menuOpen ? (
+                  <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                ) : (
+                  <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                )}
+              </svg>
+            </button>
+            
+            {menuOpen && (
+              <nav className="mobile-nav">
+                {navItems.map((item) => (
+                  <a
+                    key={item.id}
+                    href={`#${item.id}`}
+                    className={`mobile-nav-link ${activeLink === item.id ? 'active' : ''}`}
+                    onClick={(e) => handleClick(item.id, e)}
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </nav>
+            )}
+          </>
+        ) : (
+          <nav className="header-nav">
+            {navItems.map((item) => (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                className={`nav-link ${activeLink === item.id ? 'active' : ''}`}
+                onClick={(e) => handleClick(item.id, e)}
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
+        )}
       </div>
     </header>
   );
