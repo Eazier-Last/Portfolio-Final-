@@ -171,50 +171,30 @@ const ModelCard = ({ model, isHovered, onMouseEnter, onMouseLeave }) => {
                 rotationSpeed={model.rotationSpeed}
               />
               
-              {/* OrbitControls - allow rotation but lights will appear to move */}
-              // In the ModelCard component, replace the OrbitControls with this:
-<OrbitControls
-  ref={controlsRef}
-  enableZoom={true}
-  enablePan={false}
-  enableRotate={true}
-  autoRotate={true}  // Let OrbitControls handle the auto-rotate logic
-  autoRotateSpeed={2}
-  // Remove onStart and onEnd - let OrbitControls handle interaction detection
-  maxPolarAngle={Math.PI / 1.5}
-  minPolarAngle={Math.PI / 3}
-  minDistance={model.minDistance || 8}
-  maxDistance={model.maxDistance || 15}
-  enableDamping={true}
-  dampingFactor={0.05}
-/>
+              {/* OrbitControls */}
+              <OrbitControls
+                ref={controlsRef}
+                enableZoom={true}
+                enablePan={false}
+                enableRotate={true}
+                autoRotate={true}
+                autoRotateSpeed={2}
+                maxPolarAngle={Math.PI / 1.5}
+                minPolarAngle={Math.PI / 3}
+                minDistance={model.minDistance || 8}
+                maxDistance={model.maxDistance || 15}
+                enableDamping={true}
+                dampingFactor={0.05}
+              />
             </Suspense>
           </Canvas>
         </div>
         
         <div className="model-card-content">
-        
           <h3 className="model-title">{model.title}</h3>
           <p className="model-description">{model.description}</p>
           
           <div className="model-meta">
-           
-            
-            {/* <div className="model-tags">
-              {model.tags.map((tag, index) => (
-                <span 
-                  key={index} 
-                  className="model-tag"
-                  style={{ 
-                    backgroundColor: `${model.bgColor}20`,
-                    color: model.bgColor
-                  }}
-                >
-                  {tag}
-                </span>
-              ))}
-            </div> */}
-            
             <div className="software-tags">
               {model.software.map((software, index) => (
                 <span 
@@ -237,8 +217,105 @@ const ModelCard = ({ model, isHovered, onMouseEnter, onMouseLeave }) => {
   );
 };
 
-// Main Component
-const ThreeDModelsSection = () => {
+// Mobile Alternative Component
+const Mobile3DModels = () => {
+  const [mobileModels] = useState([
+    {
+      id: 1,
+      title: "Geometric Sculpture",
+      description: "Modern geometric sculpture with clean lines and dynamic form.",
+      thumbnail: "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?w=400&auto=format&fit=crop",
+      bgColor: "#6366F1"
+    },
+    {
+      id: 2,
+      title: "Organic Creature",
+      description: "Fantasy creature with organic forms and detailed textures.",
+      thumbnail: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&auto=format&fit=crop",
+      bgColor: "#10B981"
+    },
+    {
+      id: 3,
+      title: "Future Vehicle",
+      description: "Concept vehicle for 2050 with aerodynamic curves.",
+      thumbnail: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=400&auto=format&fit=crop",
+      bgColor: "#F59E0B"
+    },
+    {
+      id: 4,
+      title: "Abstract Composition",
+      description: "Non-representational composition exploring light and shadow.",
+      thumbnail: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&auto=format&fit=crop",
+      bgColor: "#8B5CF6"
+    }
+  ]);
+
+  const [activeModel, setActiveModel] = useState(0);
+
+  return (
+    <div className="mobile-models-container">
+      <div className="section-header">
+        <h2 className="section-title">3D Models</h2>
+        <p className="section-subtitle">Interactive 3D Portfolio (View on desktop for full experience)</p>
+      </div>
+      
+      <div className="mobile-model-showcase">
+        <div className="mobile-model-display">
+          <img 
+            src={mobileModels[activeModel].thumbnail} 
+            alt={mobileModels[activeModel].title}
+            className="mobile-model-image"
+            loading="lazy"
+          />
+          <div className="mobile-model-info">
+            <div className="model-category" style={{ color: mobileModels[activeModel].bgColor }}>
+              3D Model Preview
+            </div>
+            <h3 className="model-title">{mobileModels[activeModel].title}</h3>
+            <p className="model-description">{mobileModels[activeModel].description}</p>
+            <div className="mobile-model-software">
+              <span className="software-tag" style={{ 
+                backgroundColor: `${mobileModels[activeModel].bgColor}15`,
+                color: mobileModels[activeModel].bgColor,
+                borderColor: `${mobileModels[activeModel].bgColor}30`
+              }}>
+                Blender
+              </span>
+            </div>
+          </div>
+        </div>
+        
+        <div className="mobile-model-thumbnails">
+          {mobileModels.map((model, index) => (
+            <button
+              key={model.id}
+              className={`mobile-model-thumb ${index === activeModel ? 'active' : ''}`}
+              onClick={() => setActiveModel(index)}
+              style={{ borderColor: index === activeModel ? model.bgColor : 'rgba(255, 255, 255, 0.1)' }}
+            >
+              <img 
+                src={model.thumbnail} 
+                alt={model.title}
+                loading="lazy"
+              />
+            </button>
+          ))}
+        </div>
+        
+        <div className="mobile-model-note">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style={{ marginRight: '10px' }}>
+            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" stroke="currentColor" strokeWidth="2"/>
+            <path d="M12 8v4M12 16h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+          </svg>
+          <span>For the best 3D experience with interactive controls, please visit on a desktop computer.</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Original Desktop Models Component
+const Desktop3DModels = () => {
   const [models] = useState([
     {
       id: 1,
@@ -248,14 +325,12 @@ const ThreeDModelsSection = () => {
       year: "2024",
       software: ["Blender"],
       polyCount: "25k",
-     
       bgColor: "#6366F1",
       previewColor: "#818CF8",
       rotationSpeed: 0.01,
-      // DISTANCE SETTINGS FOR THIS MODEL
-      defaultDistance: 10,  // Initial camera distance
-      minDistance: 3,      // Minimum zoom-in distance
-      maxDistance: 10,     // Maximum zoom-out distance
+      defaultDistance: 10,
+      minDistance: 3,
+      maxDistance: 10,
       modelPath: "/models/model2.glb",
       modelFileName: "geometric_sculpture.glb"
     },
@@ -267,14 +342,12 @@ const ThreeDModelsSection = () => {
       year: "2024",
       software: ["Blender"],
       polyCount: "50k",
-     
       bgColor: "#10B981",
       previewColor: "#34D399",
       rotationSpeed: 0.01,
-      // DISTANCE SETTINGS FOR THIS MODEL
-      defaultDistance: 7,  // Initial camera distance
-      minDistance: 3,      // Minimum zoom-in distance (can get closer for details)
-      maxDistance: 15,     // Maximum zoom-out distance
+      defaultDistance: 7,
+      minDistance: 3,
+      maxDistance: 15,
       modelPath: "/models/model3.glb",
       modelFileName: "organic_creature.glb"
     },
@@ -286,14 +359,12 @@ const ThreeDModelsSection = () => {
       year: "2024",
       software: ["Blender"],
       polyCount: "75k",
-    
       bgColor: "#F59E0B",
       previewColor: "#FBBF24",
       rotationSpeed: 0.01,
-      // DISTANCE SETTINGS FOR THIS MODEL
-      defaultDistance: 8,  // Initial camera distance
-      minDistance: 5,      // Minimum zoom-in distance
-      maxDistance: 20,     // Maximum zoom-out distance (vehicle might be larger)
+      defaultDistance: 8,
+      minDistance: 5,
+      maxDistance: 20,
       modelPath: "/models/model2.glb",
       modelFileName: "future_vehicle.glb"
     },
@@ -305,14 +376,12 @@ const ThreeDModelsSection = () => {
       year: "2023",
       software: ["Blender"],
       polyCount: "15k",
-    
       bgColor: "#8B5CF6",
       previewColor: "#A78BFA",
       rotationSpeed: 0.01,
-      // DISTANCE SETTINGS FOR THIS MODEL
-      defaultDistance: 5,  // Initial camera distance
-      minDistance: 3,      // Minimum zoom-in distance
-      maxDistance: 10,     // Maximum zoom-out distance
+      defaultDistance: 5,
+      minDistance: 3,
+      maxDistance: 10,
       modelPath: "/models/model2.glb",
       modelFileName: "abstract_composition.glb"
     },
@@ -324,14 +393,12 @@ const ThreeDModelsSection = () => {
       year: "2024",
       software: ["Blender"],
       polyCount: "40k",
-    
       bgColor: "#EF4444",
       previewColor: "#F87171",
       rotationSpeed: 0.01,
-      // DISTANCE SETTINGS FOR THIS MODEL
-      defaultDistance: 9,  // Initial camera distance
-      minDistance: 6,      // Minimum zoom-in distance
-      maxDistance: 25,     // Maximum zoom-out distance (architecture can be large)
+      defaultDistance: 9,
+      minDistance: 6,
+      maxDistance: 25,
       modelPath: "/models/model2.glb",
       modelFileName: "modular_architecture.glb"
     },
@@ -343,14 +410,12 @@ const ThreeDModelsSection = () => {
       year: "2023",
       software: ["Blender"],
       polyCount: "100k",
-      
       bgColor: "#06B6D4",
       previewColor: "#22D3EE",
       rotationSpeed: 0.01,
-      // DISTANCE SETTINGS FOR THIS MODEL
-      defaultDistance: 7,  // Initial camera distance
-      minDistance: 4,      // Minimum zoom-in distance
-      maxDistance: 18,     // Maximum zoom-out distance
+      defaultDistance: 7,
+      minDistance: 4,
+      maxDistance: 18,
       modelPath: "/models/model2.glb",
       modelFileName: "mechanical_assembly.glb"
     },
@@ -362,14 +427,12 @@ const ThreeDModelsSection = () => {
       year: "2024",
       software: ["Blender"],
       polyCount: "30k",
-      
       bgColor: "#84CC16",
       previewColor: "#A3E635",
       rotationSpeed: 0.01,
-      // DISTANCE SETTINGS FOR THIS MODEL
-      defaultDistance: 6,  // Initial camera distance
-      minDistance: 3,      // Minimum zoom-in distance
-      maxDistance: 12,     // Maximum zoom-out distance
+      defaultDistance: 6,
+      minDistance: 3,
+      maxDistance: 12,
       modelPath: "/models/model2.glb",
       modelFileName: "strange_flora.glb"
     },
@@ -381,14 +444,12 @@ const ThreeDModelsSection = () => {
       year: "2023",
       software: ["Blender"],
       polyCount: "10k",
-      
       bgColor: "#EC4899",
       previewColor: "#F472B6",
       rotationSpeed: 0.01,
-      // DISTANCE SETTINGS FOR THIS MODEL
-      defaultDistance: 4,  // Initial camera distance (jewelry is small)
-      minDistance: 2,      // Minimum zoom-in distance (can get very close)
-      maxDistance: 8,      // Maximum zoom-out distance
+      defaultDistance: 4,
+      minDistance: 2,
+      maxDistance: 8,
       modelPath: "/models/model2.glb",
       modelFileName: "jewelry_collection.glb"
     },
@@ -400,14 +461,12 @@ const ThreeDModelsSection = () => {
       year: "2024",
       software: ["Blender"],
       polyCount: "20k",
-      
       bgColor: "#78716C",
       previewColor: "#A8A29E",
       rotationSpeed: 0.01,
-      // DISTANCE SETTINGS FOR THIS MODEL
-      defaultDistance: 5,  // Initial camera distance
-      minDistance: 3,      // Minimum zoom-in distance
-      maxDistance: 10,     // Maximum zoom-out distance
+      defaultDistance: 5,
+      minDistance: 3,
+      maxDistance: 10,
       modelPath: "/models/model2.glb",
       modelFileName: "ancient_artifact.glb"
     }
@@ -432,7 +491,7 @@ const ThreeDModelsSection = () => {
   }, [models]);
 
   return (
-    <section className="threeD-models-section" id="3d-models">
+    <>
       <div className="section-header">
         <h2 className="section-title">3D Models</h2>
         <p className="section-subtitle">Interactive 3D Portfolio</p>
@@ -453,6 +512,28 @@ const ThreeDModelsSection = () => {
           </div>
         </Suspense>
       </div>
+    </>
+  );
+};
+
+// Main Component
+const ThreeDModelsSection = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  return (
+    <section className="threeD-models-section" id="3d-models">
+      {isMobile ? <Mobile3DModels /> : <Desktop3DModels />}
     </section>
   );
 };

@@ -336,3 +336,125 @@
     font-size: 0.6rem;
   }
 }
+
+/* Mobile Optimization Styles */
+.mobile-models-container {
+  width: 100%;
+}
+
+.mobile-model-showcase {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 30px;
+  margin-top: 40px;
+}
+
+.mobile-model-display {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin-bottom: 30px;
+}
+
+.mobile-model-image {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.mobile-model-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.mobile-model-software {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.mobile-model-thumbnails {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.mobile-model-thumb {
+  aspect-ratio: 1/1;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background: rgba(255, 255, 255, 0.03);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.mobile-model-thumb:hover {
+  transform: scale(1.05);
+}
+
+.mobile-model-thumb.active {
+  border-color: currentColor;
+}
+
+.mobile-model-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mobile-model-note {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: flex-start;
+  color: #aaa;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.mobile-model-note svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Disable heavy animations on mobile */
+@media (max-width: 768px) {
+  .model-card:hover {
+    transform: none;
+  }
+  
+  .model-preview::after {
+    display: none;
+  }
+  
+  .model-card:hover .model-card-inner {
+    box-shadow: none;
+    border-color: rgba(255, 255, 255, 0.05);
+  }
+}
+
+@media (max-width: 480px) {
+  .mobile-model-thumbnails {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .mobile-model-note {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .mobile-model-note svg {
+    margin-bottom: 8px;
+    margin-right: 0;
+  }
+}
