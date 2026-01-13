@@ -1,0 +1,274 @@
+/* styles/responsive.css */
+/* 1200px Breakpoint */
+@media (max-width: 1200px) {
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .logo-thumbnails {
+    width: 50%;
+  }
+  
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+  
+  .color-palette-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* 992px Breakpoint */
+@media (max-width: 992px) {
+  .showcase-content,
+  .logo-showcase-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .products-thumbnails,
+  .logo-thumbnails {
+    width: 60%;
+  }
+  
+  .footer-links {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .purpose-metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 768px Breakpoint */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 3rem;
+  }
+  
+  .hero-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 60px;
+  }
+  
+  .hero-avatar {
+    order: -1;
+  }
+  
+  .avatar-container {
+    width: 280px;
+    height: 280px;
+  }
+  
+  .avatar-badge {
+    bottom: 15px;
+    right: 15px;
+    padding: 8px 14px;
+  }
+  
+  .availability-text {
+    font-size: 0.8rem;
+  }
+  
+  .products-thumbnails,
+  .logo-thumbnails {
+    width: 80%;
+  }
+  
+  .design-showcase,
+  .logo-showcase {
+    padding: 30px;
+  }
+  
+  .deliverables-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .skills-section {
+    padding: 60px 0;
+  }
+  
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  
+  .skill-card {
+    padding: 35px;
+  }
+  
+  .skill-icon {
+    width: 70px;
+    height: 70px;
+    font-size: 1.8rem;
+  }
+  
+  .skill-name {
+    font-size: 1.6rem;
+  }
+  
+  .skill-description {
+    font-size: 1rem;
+  }
+  
+  .footer-bottom {
+    flex-direction: column;
+    gap: 25px;
+    text-align: center;
+  }
+  
+  .mockups-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .color-palette-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .logo-title {
+    font-size: 2rem;
+  }
+  
+  .logo-description {
+    font-size: 1rem;
+  }
+  
+  .font-name {
+    font-size: 1.2rem;
+  }
+  
+  .purpose-metrics {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 480px Breakpoint */
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 2.5rem;
+  }
+  
+  .hero-title {
+    font-size: 3rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.4rem;
+  }
+  
+  .avatar-container {
+    width: 240px;
+    height: 240px;
+  }
+  
+  .avatar-badge {
+    bottom: 10px;
+    right: 10px;
+    padding: 6px 12px;
+  }
+  
+  .availability-text {
+    font-size: 0.75rem;
+  }
+  
+  .products-thumbnails,
+  .logo-thumbnails {
+    width: 100%;
+    padding: 15px;
+  }
+  
+  .design-title,
+  .logo-title {
+    font-size: 2rem;
+  }
+  
+  .design-showcase,
+  .logo-showcase {
+    padding: 20px;
+  }
+  
+  .skill-card {
+    padding: 30px;
+  }
+  
+  .skill-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 1.6rem;
+    border-radius: 16px;
+  }
+  
+  .skill-name {
+    font-size: 1.4rem;
+  }
+  
+  .skill-description {
+    font-size: 0.95rem;
+  }
+  
+  .action-buttons,
+  .logo-action-buttons {
+    flex-direction: column;
+  }
+  
+  .preview-navigation,
+  .logo-preview-navigation {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .preview-nav,
+  .logo-preview-nav {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .footer-container {
+    padding: 0 20px;
+  }
+  
+  .footer-content {
+    gap: 30px;
+  }
+  
+  .footer-links {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .footer-section {
+    padding: 60px 0 40px;
+  }
+  
+  .mockups-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .color-palette-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .logo-action-buttons {
+    flex-direction: column;
+  }
+  
+  .logo-preview-navigation {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .logo-preview-nav {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .main-logo-container {
+    padding: 20px;
+  }
+  
+  .purpose-metrics {
+    grid-template-columns: 1fr;
+  }
+}

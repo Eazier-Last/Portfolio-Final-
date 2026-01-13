@@ -1,0 +1,573 @@
+
+
+/* styles/logodesigns.css */
+.logo-designs-section {
+  padding: 100px 0 0 0;
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  scroll-margin-top: 120px;
+  margin-top:20px;
+    zoom: 0.8; /* Non-standard but works */
+}
+
+.logo-designs-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.1) 50%, 
+    transparent 100%);
+}
+
+.logo-designs-container {
+  width: 100%;
+  position: relative;
+}
+
+/* Sticky Logo Thumbnails */
+.logo-thumbnails-container {
+  position: sticky;
+  top: 100px;
+  z-index: 100;
+  padding: 15px 0;
+  margin: 0;
+  width: 100%;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo-thumbnails {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  width: 40%;
+  max-width: 800px;
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: rgba(202, 202, 202, 0.452) solid 1px;
+}
+
+/* Logo Thumbnail */
+.logo-thumbnail {
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0.5;
+  flex: 0 1 120px;
+  max-width: 120px;
+}
+
+.logo-thumbnail:hover {
+  opacity: 0.8;
+  transform: translateY(-3px);
+}
+
+.logo-thumbnail.active {
+  opacity: 1;
+  transform: translateY(-5px);
+}
+
+.logo-thumbnail.animating {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.logo-thumbnail-frame {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+.logo-thumbnail.active .logo-thumbnail-frame {
+  border-color: var(--thumb-color);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  transform: scale(1.03);
+}
+
+/* Logo Thumbnail Image Container */
+.logo-thumbnail-image-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+}
+
+.logo-thumbnail-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.logo-thumbnail.active .logo-thumbnail-image {
+  transform: scale(1.03);
+}
+
+.logo-thumbnail:not(.active) .logo-thumbnail-image {
+  filter: grayscale(20%) brightness(0.6);
+}
+
+.logo-thumbnail-overlay {
+    
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, transparent 60%, rgba(0, 0, 0, 0.8));
+  opacity: 0.3;
+  transition: opacity 0.3s ease;
+}
+
+.logo-thumbnail.active .logo-thumbnail-overlay {
+  opacity: 0;
+}
+
+.logo-thumbnail-active-indicator {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulse 2s infinite;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Logo Showcase */
+.logo-showcase {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 50px;
+  /* transform: scale(0.9); */
+}
+
+.logo-showcase-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* Left Column: Main Logo & Mockups */
+.logo-main-section {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* Main Logo Preview */
+.logo-preview-main {
+  display: flex;
+  flex-direction: column;
+  gap: 40px; /* Increased gap since we removed purpose section */
+}
+
+.main-logo-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1/1;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.main-logo-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 2;
+}
+
+.logo-preview-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+/* Mockups Section */
+.mockups-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.mockups-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.mockup-item {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 1/1;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mockup-item:hover {
+  transform: translateY(-5px);
+}
+
+.mockup-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mockup-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.mockup-item:hover .mockup-overlay {
+  opacity: 1;
+}
+
+.mockup-label {
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 8px 16px;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 20px;
+}
+
+/* Right Column: Details, Typography & Color */
+.logo-details-section {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* Project Info */
+.logo-project-info {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.logo-project-header {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.logo-meta {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.logo-category {
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.logo-year {
+  color: #888;
+  font-size: 0.9rem;
+  font-weight: 300;
+}
+
+.logo-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin: 0;
+  background: linear-gradient(135deg, #fff 0%, #a0a0a0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.logo-description {
+  color: #aaa;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.logo-client-card {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.client-header {
+  display: flex;
+  align-items: center;
+}
+
+.client-label {
+  font-size: 0.9rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.client-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+/* Typography Section */
+.typography-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 30px;
+}
+
+.typography-details {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.font-family {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.font-name {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+}
+
+.font-role {
+  font-size: 0.9rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.font-weights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.font-weight {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #fff;
+}
+
+.font-usage {
+  color: #aaa;
+  font-size: 0.95rem;
+  margin: 5px 0 0 0;
+  line-height: 1.5;
+}
+
+/* Color Palette Section */
+.color-palette-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 30px;
+}
+
+.color-palette-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 15px;
+}
+
+.color-palette-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.color-swatch {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.color-swatch:hover {
+  transform: scale(1.1);
+}
+
+.color-swatch:hover .color-hex {
+  opacity: 1;
+}
+
+.color-hex {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: white;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 4px 8px;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.color-name {
+  font-size: 0.85rem;
+  color: #888;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* Navigation */
+.logo-preview-navigation {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.logo-preview-nav {
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.logo-preview-nav:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.logo-preview-nav:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Responsive Updates */
+@media (max-width: 1200px) {
+  .color-palette-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 992px) {
+  .logo-showcase-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .mockups-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .color-palette-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .logo-title {
+    font-size: 2rem;
+  }
+  
+  .logo-description {
+    font-size: 1rem;
+  }
+  
+  .font-name {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .mockups-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .color-palette-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .logo-preview-navigation {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .logo-preview-nav {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .main-logo-container {
+    padding: 20px;
+  }
+}

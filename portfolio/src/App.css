@@ -1,0 +1,19 @@
+/* src/App.css */
+/* Import all CSS files */
+@import './styles/base.css';
+@import './styles/header.css';
+@import './styles/hero.css';
+@import './styles/portfolio.css';
+@import './styles/logodesigns.css';
+@import './styles/skills.css';
+@import './styles/footer.css';
+@import './styles/responsive.css';
+@import './styles/3Dmodels.css';
+
+/* Global app container */
+.app {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
