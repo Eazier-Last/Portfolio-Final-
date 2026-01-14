@@ -658,3 +658,289 @@
     aspect-ratio: 3/4;
   }
 }
+
+/* SIDE-BY-SIDE MOBILE LAYOUT */
+@media (max-width: 768px) {
+  .mobile-row-layout {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 20px !important;
+    align-items: start;
+  }
+  
+  .deliverables-section,
+  .design-process {
+    margin: 0 !important;
+  }
+  
+  /* Make process steps more compact */
+  .process-steps {
+    gap: 12px !important;
+  }
+  
+  .process-step {
+    padding: 12px !important;
+    gap: 12px !important;
+  }
+  
+  .step-number {
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 0.9rem !important;
+  }
+  
+  .step-content h4 {
+    font-size: 0.95rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .mobile-row-layout {
+    grid-template-columns: 1fr !important;
+    gap: 25px !important;
+  }
+}
+
+/* MOBILE: FORCE DELIVERABLES AND DESIGN APPROACH SIDE BY SIDE */
+@media (max-width: 768px) {
+  /* This will override everything and force side-by-side layout */
+  .design-details {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 20px !important;
+    margin-top: 30px !important;
+  }
+  
+  /* Reset the original flex layout */
+  .design-details {
+    flex-direction: row !important;
+    display: grid !important;
+  }
+  
+  /* Make both sections equal width */
+  .deliverables-section,
+  .design-process {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    flex: 1 !important;
+    margin: 0 !important;
+  }
+  
+  /* Compact deliverables grid */
+  .deliverables-grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+  
+  .deliverable-item {
+    padding: 12px 14px !important;
+    font-size: 0.85rem !important;
+    margin-bottom: 5px !important;
+  }
+  
+  /* Compact design process */
+  .process-steps {
+    gap: 10px !important;
+  }
+  
+  .process-step {
+    padding: 12px !important;
+    gap: 10px !important;
+    margin-bottom: 8px !important;
+  }
+  
+  .step-number {
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 0.9rem !important;
+    flex-shrink: 0 !important;
+  }
+  
+  .step-content h4 {
+    font-size: 0.95rem !important;
+    margin: 0 !important;
+    line-height: 1.3 !important;
+  }
+  
+  /* Hide descriptions on mobile */
+  .step-content p {
+    display: none !important;
+  }
+}
+
+/* For very small screens, stack them */
+@media (max-width: 480px) {
+  .design-details {
+    grid-template-columns: 1fr !important;
+    gap: 25px !important;
+  }
+}
+
+/* NUCLEAR OPTION: Force side-by-side on ALL mobile screens */
+@media (max-width: 768px) {
+  /* Force grid layout */
+  .showcase-content .design-details {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 15px !important;
+  }
+  
+  /* Force sections to fill grid cells */
+  .deliverables-section,
+  .design-process {
+    width: 100% !important;
+    min-width: 0 !important;
+    flex: none !important;
+  }
+  
+  /* Hide process step descriptions */
+  .design-process .step-content p {
+    display: none !important;
+  }
+  
+  /* Make everything more compact */
+  .deliverables-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .deliverable-item {
+    padding: 10px !important;
+    font-size: 0.8rem !important;
+  }
+  
+  .process-step {
+    padding: 10px !important;
+    
+  }
+  
+  .step-number {
+    width: 25px !important;
+    height: 25px !important;
+    font-size: 0.8rem !important;
+  }
+  
+  .step-content h4 {
+    font-size: 0.85rem !important;
+  }
+}
+
+/* MOBILE: SMALLER SECTION TITLES */
+@media (max-width: 768px) {
+  /* Main section title "Posters" */
+  .portfolio-section .section-title {
+    font-size: 1.5rem !important;
+  }
+  
+  /* Section subtitle "Featured Designs" */
+  .portfolio-section .section-subtitle {
+    font-size: 0.9rem !important;
+  }
+  
+  /* Design title (individual project title) */
+  .design-title {
+    font-size: 2rem !important;
+  }
+  
+  /* Description text */
+  .design-description {
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+  }
+  
+  /* Section titles inside (Project Deliverables, Design Approach) */
+  .section-title {
+    font-size: 1.1rem !important;
+    margin-bottom: 15px !important;
+  }
+  
+  /* Color Palette and Software Used titles */
+  .color-palette h4,
+  .software-used h4 {
+    font-size: 0.9rem !important;
+  }
+  
+  /* Software icons text */
+  .software-icon {
+    font-size: 0.8rem !important;
+    padding: 6px 12px !important;
+  }
+   .process-step h4{
+  
+    font-size: 0.5rem !important;
+  }
+  
+  /* Navigation buttons */
+  .preview-nav {
+    font-size: 0.85rem !important;
+    padding: 12px 20px !important;
+  }
+}
+
+/* Even smaller for very small phones */
+@media (max-width: 480px) {
+  .portfolio-section .section-title {
+    font-size: 1rem !important;
+  }
+  
+  .design-title {
+    font-size: 1.6rem !important;
+  }
+
+  .process-step h4{
+  
+    font-size: 0.5rem !important;
+  }
+  
+  .section-title {
+    font-size: 1rem !important;
+  }
+}
+
+/* MOBILE: SIDE-BY-SIDE NAVIGATION BUTTONS */
+@media (max-width: 768px) {
+  .preview-navigation {
+    flex-direction: row !important;
+    gap: 10px !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+  }
+  
+  .preview-nav {
+    width: 100% !important;
+    flex: 1 !important;
+    margin-left: 0 !important;
+    padding: 12px 15px !important;
+    font-size: 0.85rem !important;
+    justify-content: center !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+  
+  .preview-nav.prev {
+    margin-right: 5px !important;
+  }
+  
+  .preview-nav.next {
+    margin-left: 5px !important;
+  }
+  
+  /* Make buttons more compact on very small screens */
+  .preview-nav svg {
+    width: 14px !important;
+    height: 14px !important;
+  }
+}
+
+/* For very small screens, make buttons slightly smaller */
+@media (max-width: 480px) {
+  .preview-nav {
+    padding: 10px 12px !important;
+    font-size: 0.8rem !important;
+  }
+  
+  .preview-navigation {
+    gap: 8px !important;
+  }
+}

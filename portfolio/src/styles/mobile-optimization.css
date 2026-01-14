@@ -5,6 +5,21 @@
 
 /* Touch-friendly improvements */
 @media (max-width: 768px) {
+  /* Only reduce expensive animations, not all animations */
+  .skill-card:hover,
+  .model-card:hover,
+  .product-thumbnail:hover,
+  .logo-thumbnail:hover {
+    transition-duration: 0.3s !important;
+  }
+  
+  /* Keep smooth animations but optimize performance */
+  .fade-animation,
+  .showcase-content,
+  .logo-showcase-content {
+    animation-duration: 0.4s !important;
+  }
+  
   /* Hero Section Mobile Optimization */
   .hero-container {
     grid-template-columns: 1fr !important;
@@ -55,6 +70,13 @@
   .hero-btn {
     width: 100% !important;
     justify-content: center;
+  }
+  
+  /* Reduce ONLY heavy animations for performance */
+  .bounce,
+  .badgeFloat,
+  .pulse {
+    animation-duration: 1s !important;
   }
   
   /* Portfolio Section Mobile Optimization */
@@ -296,7 +318,7 @@
   }
 }
 
-/* Performance optimizations */
+/* Performance optimizations - ONLY for expensive effects */
 @media (max-width: 768px) {
   /* Reduce expensive CSS effects */
   .skill-card:hover,
@@ -307,20 +329,28 @@
     box-shadow: none !important;
   }
   
-  /* Simplify gradients */
+  /* Simplify gradients only if needed for performance */
   .hero-section::before,
   .portfolio-section::before,
   .skills-section::before,
   .logo-designs-section::before,
   .threeD-models-section::before {
-    background: rgba(255, 255, 255, 0.05) !important;
+    opacity: 0.5;
   }
   
-  /* Reduce border-radius for performance */
-  .skill-card,
-  .model-card-inner,
-  .design-showcase,
-  .logo-showcase {
-    border-radius: 12px !important;
+  /* Keep border-radius for design consistency */
+}
+
+/* Force 2 columns for skills on mobile */
+@media (max-width: 768px) {
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 15px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .skills-grid {
+    grid-template-columns: 1fr !important;
   }
 }

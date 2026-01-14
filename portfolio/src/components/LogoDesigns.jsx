@@ -116,8 +116,20 @@ const LogoDesigns = () => {
   const [activeLogoIndex, setActiveLogoIndex] = useState(0);
   const [isLogoAnimating, setIsLogoAnimating] = useState(false);
   const [isLogoSticky, setIsLogoSticky] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const logoDesignsRef = useRef(null);
   const logoThumbnailRef = useRef(null);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -171,8 +183,12 @@ const LogoDesigns = () => {
   return (
     <section className="logo-designs-section" id="logo-designs" ref={logoDesignsRef}>
       <div className="section-header">
-        <h2 className="section-title">Logo Designs</h2>
-        <p className="section-subtitle">Brand Identity & Logo Portfolio</p>
+        <h2 className="section-title" style={isMobile ? { fontSize: '2.5rem' } : {}}>
+          Logo Designs
+        </h2>
+        <p className="section-subtitle" style={isMobile ? { fontSize: '0.9rem' } : {}}>
+          Brand Identity & Logo Portfolio
+        </p>
       </div>
       
       <div className="logo-designs-container">
@@ -214,17 +230,117 @@ const LogoDesigns = () => {
           <div className={`logo-showcase-content ${isLogoAnimating ? 'fade-animation' : ''}`}>
             <div className="logo-main-section">
               <div className="logo-preview-main">
-                <div className="main-logo-container">
+                <div className="main-logo-container" style={isMobile ? { position: 'relative', paddingBottom: '100px' } : {}}>
                   <img 
                     src={activeLogo.image} 
                     alt={activeLogo.title}
                     className="main-logo-image"
+                    style={isMobile ? { marginBottom: '20px' } : {}}
                   />
                   <div className="logo-preview-overlay" style={{ background: `linear-gradient(45deg, ${activeLogo.color}15, transparent)` }} />
+                  
+                  {/* Color Palette INSIDE main logo container for mobile */}
+                  {isMobile && (
+                    <div 
+                      className="mobile-color-palette"
+                      style={{
+                        position: 'absolute',
+                        bottom: '20px',
+                        left: '20px',
+                        right: '20px',
+                        padding: '15px',
+                        background: 'rgba(255, 255, 255, 0.02)',
+                        borderRadius: '12px',
+                        border: '1px solid rgba(255, 255, 255, 0.05)'
+                      }}
+                    >
+                      <h4 style={{ 
+                        fontSize: '0.9rem', 
+                        fontWeight: '600', 
+                        color: '#fff', 
+                        margin: '0 0 12px 0',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.1em',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px'
+                      }}>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                          <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4C8.67 8 8 7.33 8 6.5S8.67 5 9.5 5s1.5.67 1.5 1.5S10.33 8 9.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 9 17.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z" fill={activeLogo.color}/>
+                        </svg>
+                        Color Palette
+                      </h4>
+                      <div 
+                        style={{
+                          display: 'flex',
+                          overflowX: 'auto',
+                          gap: '8px',
+                          paddingBottom: '5px',
+                          WebkitOverflowScrolling: 'touch'
+                        }}
+                      >
+                        {activeLogo.colorPalette.map((color, index) => (
+                          <div 
+                            key={index}
+                            style={{
+                              flex: '0 0 auto',
+                              display: 'flex',
+                              flexDirection: 'column',
+                              alignItems: 'center',
+                              gap: '4px',
+                              minWidth: '60px'
+                            }}
+                          >
+                            <div 
+                              style={{ 
+                                backgroundColor: color.value,
+                                width: '40px',
+                                height: '40px',
+                                borderRadius: '8px',
+                                border: '1px solid rgba(255, 255, 255, 0.1)',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'flex-end',
+                                justifyContent: 'center',
+                                position: 'relative',
+                                overflow: 'hidden'
+                              }}
+                              onClick={() => navigator.clipboard.writeText(color.value)}
+                            >
+                              <span style={{
+                                fontSize: '0.6rem',
+                                fontWeight: '600',
+                                color: 'white',
+                                background: 'rgba(0, 0, 0, 0.7)',
+                                padding: '2px 4px',
+                                borderRadius: '3px',
+                                opacity: '0',
+                                transition: 'opacity 0.3s ease'
+                              }}>
+                                {color.value}
+                              </span>
+                            </div>
+                            <span style={{
+                              fontSize: '0.65rem',
+                              color: '#888',
+                              textAlign: 'center',
+                              lineHeight: '1.2',
+                              width: '100%',
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                              whiteSpace: 'nowrap'
+                            }}>
+                              {color.name}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 <div className="mockups-section">
-                  <h3 className="section-title">
+                  <h3 className="section-title" style={isMobile ? { fontSize: '1.1rem' } : {}}>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style={{ marginRight: '10px' }}>
                       <path d="M21 16V4c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zm-2 0H5V4h14v12zm-7-1c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z" fill={activeLogo.color}/>
                     </svg>
@@ -251,13 +367,13 @@ const LogoDesigns = () => {
                     </span>
                     <span className="logo-year">{activeLogo.year}</span>
                   </div>
-                  <h2 className="logo-title">{activeLogo.title}</h2>
-                  <p className="logo-description">{activeLogo.description}</p>
+                  <h2 className="logo-title" style={isMobile ? { fontSize: '2rem' } : {}}>{activeLogo.title}</h2>
+                  <p className="logo-description" style={isMobile ? { fontSize: '0.95rem' } : {}}>{activeLogo.description}</p>
                 </div>
               </div>
               
               <div className="typography-section">
-                <h3 className="section-title">
+                <h3 className="section-title" style={isMobile ? { fontSize: '1.1rem' } : {}}>
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style={{ marginRight: '10px' }}>
                     <path d="M9 4v3h5v12h3V7h5V4H9zm-6 8h3v7h3v-7h3V9H3v3z" fill={activeLogo.color}/>
                   </svg>
@@ -265,7 +381,7 @@ const LogoDesigns = () => {
                 </h3>
                 <div className="typography-details">
                   <div className="font-family primary-font">
-                    <h4 className="font-name">{activeLogo.typography.primary}</h4>
+                    <h4 className="font-name" style={isMobile ? { fontSize: '1.2rem' } : {}}>{activeLogo.typography.primary}</h4>
                     <span className="font-role">Primary Font</span>
                     <div className="font-weights">
                       {activeLogo.typography.weights.map((weight, idx) => (
@@ -276,55 +392,82 @@ const LogoDesigns = () => {
                     </div>
                   </div>
                   <div className="font-family secondary-font">
-                    <h4 className="font-name">{activeLogo.typography.secondary}</h4>
+                    <h4 className="font-name" style={isMobile ? { fontSize: '1.2rem' } : {}}>{activeLogo.typography.secondary}</h4>
                     <span className="font-role">Secondary Font</span>
                     <p className="font-usage">Used for body text and supporting content</p>
                   </div>
                 </div>
               </div>
               
-              <div className="color-palette-section">
-                <h3 className="section-title">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style={{ marginRight: '10px' }}>
-                    <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4C8.67 8 8 7.33 8 6.5S8.67 5 9.5 5s1.5.67 1.5 1.5S10.33 8 9.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 9 17.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z" fill={activeLogo.color}/>
-                  </svg>
-                  Color Palette
-                </h3>
-                <div className="color-palette-grid">
-                  {activeLogo.colorPalette.map((color, index) => (
-                    <div key={index} className="color-palette-item">
-                      <div 
-                        className="color-swatch" 
-                        style={{ backgroundColor: color.value }}
-                        onClick={() => navigator.clipboard.writeText(color.value)}
-                      >
-                        <span className="color-hex">{color.value}</span>
+              {/* Color Palette Section - Only show on desktop */}
+              {!isMobile && (
+                <div className="color-palette-section">
+                  <h3 className="section-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style={{ marginRight: '10px' }}>
+                      <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4C8.67 8 8 7.33 8 6.5S8.67 5 9.5 5s1.5.67 1.5 1.5S10.33 8 9.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 9 17.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z" fill={activeLogo.color}/>
+                    </svg>
+                    Color Palette
+                  </h3>
+                  <div className="color-palette-grid">
+                    {activeLogo.colorPalette.map((color, index) => (
+                      <div key={index} className="color-palette-item">
+                        <div 
+                          className="color-swatch" 
+                          style={{ backgroundColor: color.value }}
+                          onClick={() => navigator.clipboard.writeText(color.value)}
+                        >
+                          <span className="color-hex">{color.value}</span>
+                        </div>
+                        <span className="color-name">{color.name}</span>
                       </div>
-                      <span className="color-name">{color.name}</span>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
           
-          <div className="logo-preview-navigation">
+          <div 
+            className="logo-preview-navigation"
+            style={isMobile ? {
+              display: 'flex',
+              flexDirection: 'row',
+              gap: '10px',
+              justifyContent: 'center',
+              marginTop: '30px',
+              paddingTop: '20px'
+            } : {}}
+          >
             <button 
               className="logo-preview-nav prev"
               onClick={handleLogoPrevious}
               disabled={isLogoAnimating}
+              style={isMobile ? { 
+                fontSize: '0.85rem', 
+                padding: '12px 15px',
+                flex: '1',
+                marginLeft: '0',
+                justifyContent: 'center'
+              } : {}}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{ marginRight: '8px' }}>
                 <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              Previous Logo
+              Previous
             </button>
             <button 
               className="logo-preview-nav next"
               onClick={handleLogoNext}
               disabled={isLogoAnimating}
+              style={isMobile ? { 
+                fontSize: '0.85rem', 
+                padding: '12px 15px',
+                flex: '1',
+                marginLeft: '0',
+                justifyContent: 'center'
+              } : {}}
             >
-              Next Logo
+              Next
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{ marginLeft: '8px' }}>
                 <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>

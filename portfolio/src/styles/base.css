@@ -145,12 +145,21 @@ body {
 /* Mobile Optimization - Add these to base.css */
 
 /* Disable heavy animations on mobile */
+/* Mobile Optimization - Add these to base.css */
+
+/* REMOVE or COMMENT OUT this section:
 @media (max-width: 768px) {
   * {
     animation-duration: 0.3s !important;
     transition-duration: 0.2s !important;
   }
   
+  ... rest of the code ...
+}
+*/
+
+/* Replace with this selective approach: */
+@media (max-width: 768px) {
   /* Improve touch targets */
   button, 
   .nav-link,

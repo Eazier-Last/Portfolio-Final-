@@ -571,3 +571,217 @@
     padding: 20px;
   }
 }
+
+/* MOBILE: SIDE-BY-SIDE NAVIGATION BUTTONS FOR LOGO DESIGNS */
+@media (max-width: 768px) {
+  .logo-preview-navigation {
+    flex-direction: row !important;
+    gap: 10px !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    margin-top: 25px !important;
+    padding-top: 20px !important;
+  }
+  
+  .logo-preview-nav {
+    width: 100% !important;
+    flex: 1 !important;
+    margin-left: 0 !important;
+    padding: 12px 15px !important;
+    font-size: 0.85rem !important;
+    justify-content: center !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+  
+  .logo-preview-nav.prev {
+    margin-right: 5px !important;
+  }
+  
+  .logo-preview-nav.next {
+    margin-left: 5px !important;
+  }
+  
+  /* Adjust logo section title size for mobile */
+  .logo-designs-section .section-title {
+    font-size: 2.5rem !important;
+  }
+  
+  .logo-designs-section .section-subtitle {
+    font-size: 0.9rem !important;
+  }
+  
+  .logo-title {
+    font-size: 2rem !important;
+  }
+  
+  .logo-description {
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+  }
+  
+  .section-title {
+    font-size: 1.1rem !important;
+    margin-bottom: 15px !important;
+  }
+}
+
+/* For very small screens */
+@media (max-width: 480px) {
+  .logo-preview-nav {
+    padding: 10px 12px !important;
+    font-size: 0.8rem !important;
+  }
+  
+  .logo-preview-navigation {
+    gap: 8px !important;
+    margin-top: 20px !important;
+    padding-top: 15px !important;
+  }
+  
+  .logo-designs-section .section-title {
+    font-size: 2rem !important;
+  }
+  
+  .logo-title {
+    font-size: 1.6rem !important;
+  }
+  
+  .section-title {
+    font-size: 1rem !important;
+  }
+}
+
+/* MOBILE: COLOR PALETTE INSIDE MAIN LOGO CONTAINER */
+@media (max-width: 768px) {
+  .main-logo-container {
+    position: relative !important;
+    padding-bottom: 100px !important;
+  }
+  
+  .main-logo-image {
+    margin-bottom: 20px !important;
+  }
+  
+  .mobile-color-palette {
+    position: absolute !important;
+    bottom: 20px !important;
+    left: 20px !important;
+    right: 20px !important;
+    padding: 15px !important;
+    background: rgba(255, 255, 255, 0.02) !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  }
+  
+  .mobile-color-palette h4 {
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    color: #fff !important;
+    margin: 0 0 12px 0 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1em !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
+  
+  .mobile-color-palette > div {
+    display: flex !important;
+    overflow-x: auto !important;
+    gap: 8px !important;
+    padding-bottom: 5px !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  
+  .mobile-color-palette > div > div {
+    flex: 0 0 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 4px !important;
+    min-width: 60px !important;
+  }
+  
+  .mobile-color-palette .color-swatch-mobile {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 8px !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: flex-end !important;
+    justify-content: center !important;
+    position: relative !important;
+    overflow: hidden !important;
+  }
+  
+  .mobile-color-palette .color-swatch-mobile:hover span {
+    opacity: 1 !important;
+  }
+  
+  .mobile-color-palette .color-swatch-mobile span {
+    font-size: 0.6rem !important;
+    font-weight: 600 !important;
+    color: white !important;
+    background: rgba(0, 0, 0, 0.7) !important;
+    padding: 2px 4px !important;
+    border-radius: 3px !important;
+    opacity: 0 !important;
+    transition: opacity 0.3s ease !important;
+  }
+  
+  .mobile-color-palette .color-name-mobile {
+    font-size: 0.65rem !important;
+    color: #888 !important;
+    text-align: center !important;
+    line-height: 1.2 !important;
+    width: 100% !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+  
+  /* Hide the regular color palette section on mobile */
+  .color-palette-section {
+    display: none !important;
+  }
+  
+  /* Adjust typography section to take full width on mobile */
+  .typography-section {
+    width: 100% !important;
+  }
+}
+
+/* For very small screens */
+@media (max-width: 480px) {
+  .main-logo-container {
+    padding-bottom: 90px !important;
+  }
+  
+  .mobile-color-palette {
+    padding: 12px !important;
+    bottom: 15px !important;
+    left: 15px !important;
+    right: 15px !important;
+  }
+  
+  .mobile-color-palette h4 {
+    font-size: 0.8rem !important;
+    margin-bottom: 10px !important;
+  }
+  
+  .mobile-color-palette > div > div {
+    min-width: 55px !important;
+  }
+  
+  .mobile-color-palette .color-swatch-mobile {
+    width: 35px !important;
+    height: 35px !important;
+  }
+  
+  .mobile-color-palette .color-name-mobile {
+    font-size: 0.6rem !important;
+  }
+}

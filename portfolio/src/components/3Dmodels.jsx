@@ -217,99 +217,276 @@ const ModelCard = ({ model, isHovered, onMouseEnter, onMouseLeave }) => {
   );
 };
 
-// Mobile Alternative Component
+// Modal Component
+const MobileModelModal = ({ model, onClose, onNext, onPrev, currentIndex, total }) => {
+  useEffect(() => {
+    // Prevent body scroll when modal is open
+    document.body.classList.add('modal-open');
+    
+    return () => {
+      document.body.classList.remove('modal-open');
+    };
+  }, []);
+
+  const handleOverlayClick = (e) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
+  return (
+    <div className="mobile-model-modal" onClick={handleOverlayClick}>
+      <div className="mobile-model-modal-content">
+        <div className="mobile-model-modal-image-container">
+          <img 
+            src={model.image} 
+            alt={model.title}
+            className="mobile-model-modal-image"
+          />
+          
+          <button 
+            className="mobile-model-modal-close"
+            onClick={onClose}
+            aria-label="Close modal"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+          
+          <div className="mobile-model-modal-zoom-note">
+            Pinch to zoom or tap to close
+          </div>
+        </div>
+        
+        <div className="mobile-model-modal-info">
+          <div>
+            <h3 className="mobile-model-modal-title">{model.title}</h3>
+            <p className="mobile-model-modal-category">{model.category}</p>
+            <p className="mobile-model-modal-description">
+              View this model on desktop for the full interactive 3D experience with rotation and zoom controls.
+            </p>
+          </div>
+          
+          <div className="mobile-model-modal-navigation">
+            <button 
+              className="mobile-model-modal-nav"
+              onClick={onPrev}
+              disabled={currentIndex === 0}
+              aria-label="Previous model"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
+            
+            <div className="mobile-model-modal-counter">
+              {currentIndex + 1} / {total}
+            </div>
+            
+            <button 
+              className="mobile-model-modal-nav"
+              onClick={onNext}
+              disabled={currentIndex === total - 1}
+              aria-label="Next model"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Mobile Alternative Component - UPDATED FOR 2x4 IMAGE GRID WITH MODAL
 const Mobile3DModels = () => {
   const [mobileModels] = useState([
     {
       id: 1,
       title: "Geometric Sculpture",
-      description: "Modern geometric sculpture with clean lines and dynamic form.",
+      category: "3D Model",
+      description: "Modern geometric sculpture with clean lines and dynamic form. Created using Blender with 25k polygons.",
+      image: "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?w=800&auto=format&fit=crop",
       thumbnail: "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?w=400&auto=format&fit=crop",
-      bgColor: "#6366F1"
+      bgColor: "#6366F1",
+      software: ["Blender"]
     },
     {
       id: 2,
       title: "Organic Creature",
-      description: "Fantasy creature with organic forms and detailed textures.",
+      category: "Character Design",
+      description: "Fantasy creature with organic forms and detailed textures. Character modeling with 50k polygons.",
+      image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&auto=format&fit=crop",
       thumbnail: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&auto=format&fit=crop",
-      bgColor: "#10B981"
+      bgColor: "#10B981",
+      software: ["Blender"]
     },
     {
       id: 3,
       title: "Future Vehicle",
-      description: "Concept vehicle for 2050 with aerodynamic curves.",
+      category: "Concept Design",
+      description: "Concept vehicle for 2050 with aerodynamic curves and futuristic details.",
+      image: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=800&auto=format&fit=crop",
       thumbnail: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=400&auto=format&fit=crop",
-      bgColor: "#F59E0B"
+      bgColor: "#F59E0B",
+      software: ["Blender"]
     },
     {
       id: 4,
       title: "Abstract Composition",
-      description: "Non-representational composition exploring light and shadow.",
+      category: "Art Installation",
+      description: "Non-representational composition exploring light, shadow, and geometric forms.",
+      image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&auto=format&fit=crop",
       thumbnail: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&auto=format&fit=crop",
-      bgColor: "#8B5CF6"
+      bgColor: "#8B5CF6",
+      software: ["Blender"]
+    },
+    {
+      id: 5,
+      title: "Modular Architecture",
+      category: "Architecture",
+      description: "Modular building system for sustainable urban environments with reusable components.",
+      image: "https://images.unsplash.com/photo-1503174971373-b1f69850bded?w=800&auto=format&fit=crop",
+      thumbnail: "https://images.unsplash.com/photo-1503174971373-b1f69850bded?w=400&auto=format&fit=crop",
+      bgColor: "#EF4444",
+      software: ["Blender"]
+    },
+    {
+      id: 6,
+      title: "Mechanical Assembly",
+      category: "Industrial Design",
+      description: "Complex mechanical assembly with moving parts and intricate detailing.",
+      image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&auto=format&fit=crop",
+      thumbnail: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=400&auto=format&fit=crop",
+      bgColor: "#06B6D4",
+      software: ["Blender"]
+    },
+    {
+      id: 7,
+      title: "Alien Flora",
+      category: "Environmental Design",
+      description: "Alien plant life designed for a sci-fi environment with exotic shapes and colors.",
+      image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&auto=format&fit=crop",
+      thumbnail: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&auto=format&fit=crop",
+      bgColor: "#84CC16",
+      software: ["Blender"]
+    },
+    {
+      id: 8,
+      title: "Jewelry Collection",
+      category: "Jewelry Design",
+      description: "High-end jewelry collection with intricate patterns, gemstones, and metallic finishes.",
+      image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&auto=format&fit=crop",
+      thumbnail: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400&auto=format&fit=crop",
+      bgColor: "#EC4899",
+      software: ["Blender"]
     }
   ]);
 
-  const [activeModel, setActiveModel] = useState(0);
+  const [selectedModel, setSelectedModel] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const handleImageClick = (index) => {
+    setSelectedIndex(index);
+    setSelectedModel(mobileModels[index]);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedModel(null);
+  };
+
+  const handleNextModel = () => {
+    if (selectedIndex < mobileModels.length - 1) {
+      const nextIndex = selectedIndex + 1;
+      setSelectedIndex(nextIndex);
+      setSelectedModel(mobileModels[nextIndex]);
+    }
+  };
+
+  const handlePrevModel = () => {
+    if (selectedIndex > 0) {
+      const prevIndex = selectedIndex - 1;
+      setSelectedIndex(prevIndex);
+      setSelectedModel(mobileModels[prevIndex]);
+    }
+  };
+
+  // Handle keyboard navigation when modal is open
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (!selectedModel) return;
+      
+      if (e.key === 'Escape') {
+        handleCloseModal();
+      } else if (e.key === 'ArrowRight') {
+        handleNextModel();
+      } else if (e.key === 'ArrowLeft') {
+        handlePrevModel();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedModel, selectedIndex]);
 
   return (
     <div className="mobile-models-container">
-      <div className="section-header">
-        <h2 className="section-title">3D Models</h2>
-        <p className="section-subtitle">Interactive 3D Portfolio (View on desktop for full experience)</p>
+      <div className="mobile-models-header">
+        <h2 className="mobile-models-title">3D Models</h2>
+        <p className="mobile-models-subtitle">Tap images to preview • View on desktop for interactive 3D</p>
       </div>
       
-      <div className="mobile-model-showcase">
-        <div className="mobile-model-display">
-          <img 
-            src={mobileModels[activeModel].thumbnail} 
-            alt={mobileModels[activeModel].title}
-            className="mobile-model-image"
-            loading="lazy"
-          />
-          <div className="mobile-model-info">
-            <div className="model-category" style={{ color: mobileModels[activeModel].bgColor }}>
-              3D Model Preview
-            </div>
-            <h3 className="model-title">{mobileModels[activeModel].title}</h3>
-            <p className="model-description">{mobileModels[activeModel].description}</p>
-            <div className="mobile-model-software">
-              <span className="software-tag" style={{ 
-                backgroundColor: `${mobileModels[activeModel].bgColor}15`,
-                color: mobileModels[activeModel].bgColor,
-                borderColor: `${mobileModels[activeModel].bgColor}30`
-              }}>
-                Blender
-              </span>
+      <div className="mobile-models-grid">
+        {mobileModels.map((model, index) => (
+          <div 
+            key={model.id}
+            className="mobile-model-image-item"
+            onClick={() => handleImageClick(index)}
+            role="button"
+            tabIndex={0}
+            aria-label={`View ${model.title}`}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                handleImageClick(index);
+                e.preventDefault();
+              }
+            }}
+          >
+            <img 
+              src={model.thumbnail} 
+              alt={model.title}
+              className="mobile-model-image"
+              loading="lazy"
+            />
+            <div className="mobile-model-overlay">
+              <h3 className="mobile-model-title">{model.title}</h3>
+              <span className="mobile-model-category">{model.category}</span>
             </div>
           </div>
-        </div>
-        
-        <div className="mobile-model-thumbnails">
-          {mobileModels.map((model, index) => (
-            <button
-              key={model.id}
-              className={`mobile-model-thumb ${index === activeModel ? 'active' : ''}`}
-              onClick={() => setActiveModel(index)}
-              style={{ borderColor: index === activeModel ? model.bgColor : 'rgba(255, 255, 255, 0.1)' }}
-            >
-              <img 
-                src={model.thumbnail} 
-                alt={model.title}
-                loading="lazy"
-              />
-            </button>
-          ))}
-        </div>
-        
-        <div className="mobile-model-note">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style={{ marginRight: '10px' }}>
-            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" stroke="currentColor" strokeWidth="2"/>
-            <path d="M12 8v4M12 16h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-          </svg>
-          <span>For the best 3D experience with interactive controls, please visit on a desktop computer.</span>
-        </div>
+        ))}
       </div>
+      
+      <div className="mobile-model-note">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style={{ marginRight: '10px' }}>
+          <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" stroke="currentColor" strokeWidth="2"/>
+          <path d="M12 8v4M12 16h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+        </svg>
+        <span>Tap any image to view in full screen. For interactive 3D controls, please visit on a desktop computer.</span>
+      </div>
+      
+      {selectedModel && (
+        <MobileModelModal
+          model={selectedModel}
+          onClose={handleCloseModal}
+          onNext={handleNextModel}
+          onPrev={handlePrevModel}
+          currentIndex={selectedIndex}
+          total={mobileModels.length}
+        />
+      )}
     </div>
   );
 };

@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+
+import React, { useState, useEffect, useRef } from 'react';
 import '../styles/header.css';
 
 const Header = () => {
   const [activeLink, setActiveLink] = useState('home');
   const [isMobile, setIsMobile] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef(null);
   
   useEffect(() => {
     const checkMobile = () => {
@@ -18,11 +20,11 @@ const Header = () => {
   }, []);
   
   const navItems = [
-    { id: 'home', label: 'Home' },
-    { id: 'skills', label: 'Skills' },
-    { id: 'portfolio', label: 'Posters' },
-    { id: 'logo-designs', label: 'Logo Designs' },
-    { id: '3d-models', label: '3D Models' },
+    { id: 'home', label: 'Home', icon: '🏠' },
+    { id: 'skills', label: 'Skills', icon: '🛠️' },
+    { id: 'portfolio', label: 'Posters', icon: '🎨' },
+    { id: 'logo-designs', label: 'Logo Designs', icon: '✨' },
+    { id: '3d-models', label: '3D Models', icon: '🧊' },
   ];
 
   const handleClick = (id, e) => {
@@ -32,7 +34,7 @@ const Header = () => {
     
     const element = document.getElementById(id);
     if (element) {
-      const headerHeight = isMobile ? 140 : 100;
+      const headerHeight = isMobile ? 56 : 100;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
       
@@ -91,22 +93,48 @@ const Header = () => {
     return () => window.removeEventListener('scroll', throttledScroll);
   }, [navItems]);
 
+  // Close menu when clicking outside or scrolling
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (menuOpen && menuRef.current && !menuRef.current.contains(e.target)) {
+        setMenuOpen(false);
+      }
+    };
+
+    const handleScroll = () => {
+      if (menuOpen) {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    window.addEventListener('scroll', handleScroll);
+    
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [menuOpen]);
+
   return (
-    <header className="main-header">
+    <header className={`main-header ${isMobile ? 'mobile-header' : ''}`}>
       <div className="header-container">
-        <div className="header-logo">
-          <span className="logo-text">EL</span>
-          <span className="logo-name">Ezekiel Labay</span>
+        <div className="header-left">
+          <div className="header-logo">
+            <span className="logo-text">EL</span>
+            <span className="logo-name">Ezekiel Labay</span>
+          </div>
         </div>
         
         {isMobile ? (
-          <>
+          <div className="header-right" ref={menuRef}>
             <button 
               className="mobile-menu-toggle"
               onClick={() => setMenuOpen(!menuOpen)}
-              aria-label="Toggle menu"
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={menuOpen}
             >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="menu-icon">
                 {menuOpen ? (
                   <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 ) : (
@@ -116,20 +144,33 @@ const Header = () => {
             </button>
             
             {menuOpen && (
-              <nav className="mobile-nav">
-                {navItems.map((item) => (
-                  <a
-                    key={item.id}
-                    href={`#${item.id}`}
-                    className={`mobile-nav-link ${activeLink === item.id ? 'active' : ''}`}
-                    onClick={(e) => handleClick(item.id, e)}
-                  >
-                    {item.label}
-                  </a>
-                ))}
-              </nav>
+              <>
+                <div className="mobile-menu-overlay" onClick={() => setMenuOpen(false)} />
+                <nav className="mobile-nav">
+                  <div className="mobile-nav-items">
+                    {navItems.map((item) => (
+                      <a
+                        key={item.id}
+                        href={`#${item.id}`}
+                        className={`mobile-nav-link ${activeLink === item.id ? 'active' : ''}`}
+                        onClick={(e) => handleClick(item.id, e)}
+                      >
+                        <span className="mobile-nav-icon">{item.icon}</span>
+                        <span className="mobile-nav-text">{item.label}</span>
+                        {activeLink === item.id && (
+                          <span className="mobile-nav-indicator">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="#667eea"/>
+                            </svg>
+                          </span>
+                        )}
+                      </a>
+                    ))}
+                  </div>
+                </nav>
+              </>
             )}
-          </>
+          </div>
         ) : (
           <nav className="header-nav">
             {navItems.map((item) => (

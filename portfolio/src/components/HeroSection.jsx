@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import '../styles/hero.css';
 
@@ -113,12 +114,15 @@ const HeroSection = () => {
         )}
       </div>
       
-      <div className="scroll-indicator">
-        <span>Scroll to see my work</span>
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <path d="M7 10L12 15L17 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-      </div>
+      {/* Only show scroll indicator on desktop */}
+      {!isMobile && (
+        <div className="scroll-indicator">
+          <span>Scroll to see my work</span>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M7 10L12 15L17 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </div>
+      )}
     </section>
   );
 };

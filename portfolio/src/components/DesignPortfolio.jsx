@@ -17,7 +17,6 @@ const DesignPortfolio = () => {
       sampleImages: [
         "https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=400",
         "https://images.unsplash.com/photo-1542744095-291d1f67b221?w=400",
-        // "https://images.unsplash.com/photo-1563089145-599997674d42?w=400"
       ]
     },
     {
@@ -34,7 +33,6 @@ const DesignPortfolio = () => {
       sampleImages: [
         "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=400",
         "https://images.unsplash.com/photo-1556228578-9c360e5d0c80?w=400",
-        // "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400"
       ]
     },
     {
@@ -51,7 +49,6 @@ const DesignPortfolio = () => {
       sampleImages: [
         "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400",
         "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400",
-        // "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?w=400"
       ]
     }
   ]);
@@ -59,8 +56,20 @@ const DesignPortfolio = () => {
   const [activeIndex, setActiveIndex] = useState(1);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const portfolioRef = useRef(null);
   const thumbnailRef = useRef(null);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -112,8 +121,12 @@ const DesignPortfolio = () => {
   return (
     <section className="portfolio-section" id="portfolio" ref={portfolioRef}>
       <div className="section-header">
-        <h2 className="section-title">Posters</h2>
-        <p className="section-subtitle">Featured Designs</p>
+        <h2 className="section-title" style={isMobile ? { fontSize: '2.5rem' } : {}}>
+          Posters
+        </h2>
+        <p className="section-subtitle" style={isMobile ? { fontSize: '0.9rem' } : {}}>
+          Featured Designs
+        </p>
       </div>
       
       <div className="portfolio-container">
@@ -168,53 +181,171 @@ const DesignPortfolio = () => {
                   </div>
                 </div>
                 
-                <h2 className="design-title">{designs[activeIndex].title}</h2>
-                <p className="design-description">{designs[activeIndex].description}</p>
+                <h2 className="design-title" style={isMobile ? { fontSize: '2rem' } : {}}>
+                  {designs[activeIndex].title}
+                </h2>
+                <p className="design-description" style={isMobile ? { fontSize: '0.95rem' } : {}}>
+                  {designs[activeIndex].description}
+                </p>
               </div>
               
-              <div className="deliverables-section">
-                <h3 className="section-title">Project Deliverables</h3>
-                <div className="deliverables-grid">
-                  {designs[activeIndex].deliverables.map((item, index) => (
-                    <div 
-                      key={index} 
-                      className="deliverable-item"
-                      style={{ 
-                        borderLeftColor: designs[activeIndex].color,
-                        backgroundColor: `${designs[activeIndex].color}10`
-                      }}
-                    >
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{ marginRight: '10px', color: designs[activeIndex].color }}>
-                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="currentColor"/>
-                      </svg>
-                      {item}
-                    </div>
-                  ))}
+              <div 
+                style={isMobile ? {
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(2, 1fr)',
+                  gap: '15px',
+                  marginTop: '20px',
+                  width: '100%'
+                } : {}}
+              >
+                <div 
+                  className="deliverables-section"
+                  style={isMobile ? {
+                    width: '100%',
+                    margin: '0'
+                  } : {}}
+                >
+                  <h3 
+                    className="section-title"
+                    style={isMobile ? { fontSize: '1.1rem' } : {}}
+                  >
+                    Project Deliverables
+                  </h3>
+                  <div 
+                    className="deliverables-grid"
+                    style={isMobile ? {
+                      display: 'grid',
+                      gridTemplateColumns: '1fr',
+                      gap: '8px'
+                    } : {}}
+                  >
+                    {designs[activeIndex].deliverables.map((item, index) => (
+                      <div 
+                        key={index} 
+                        className="deliverable-item"
+                        style={{ 
+                          borderLeftColor: designs[activeIndex].color,
+                          backgroundColor: `${designs[activeIndex].color}10`,
+                          ...(isMobile ? {
+                            padding: '10px 12px',
+                            fontSize: '0.8rem',
+                            marginBottom: '5px'
+                          } : {})
+                        }}
+                      >
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{ marginRight: '10px', color: designs[activeIndex].color }}>
+                          <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="currentColor"/>
+                        </svg>
+                        {item}
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-              
-              <div className="design-process">
-                <h3 className="section-title">Design Approach</h3>
-                <div className="process-steps">
-                  <div className="process-step">
-                    <div className="step-number" style={{ backgroundColor: designs[activeIndex].color }}>1</div>
-                    <div className="step-content">
-                      <h4>Concept Development</h4>
-                      <p>Research, mood boards, and initial concept sketches</p>
+                
+                <div 
+                  className="design-process"
+                  style={isMobile ? {
+                    width: '100%',
+                    margin: '0'
+                  } : {}}
+                >
+                  <h3 
+                    className="section-title"
+                    style={isMobile ? { fontSize: '1.1rem' } : {}}
+                  >
+                    Design Approach
+                  </h3>
+                  <div 
+                    className="process-steps"
+                    style={isMobile ? {
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '8px'
+                    } : {}}
+                  >
+                    <div 
+                      className="process-step"
+                      style={isMobile ? {
+                        padding: '10px',
+                        gap: '10px',
+                        marginBottom: '5px'
+                      } : {}}
+                    >
+                      <div 
+                        className="step-number" 
+                        style={{ 
+                          backgroundColor: designs[activeIndex].color,
+                          ...(isMobile ? {
+                            width: '28px',
+                            height: '28px',
+                            fontSize: '0.8rem'
+                          } : {})
+                        }}
+                      >
+                        1
+                      </div>
+                      <div className="step-content">
+                        <h4 style={isMobile ? { fontSize: '0.9rem', margin: '0' } : {}}>
+                          Concept Development
+                        </h4>
+                        {!isMobile && <p>Research, mood boards, and initial concept sketches</p>}
+                      </div>
                     </div>
-                  </div>
-                  <div className="process-step">
-                    <div className="step-number" style={{ backgroundColor: designs[activeIndex].color }}>2</div>
-                    <div className="step-content">
-                      <h4>Design Execution</h4>
-                      <p>Digital design, typography, and color scheme refinement</p>
+                    <div 
+                      className="process-step"
+                      style={isMobile ? {
+                        padding: '10px',
+                        gap: '10px',
+                        marginBottom: '5px'
+                      } : {}}
+                    >
+                      <div 
+                        className="step-number" 
+                        style={{ 
+                          backgroundColor: designs[activeIndex].color,
+                          ...(isMobile ? {
+                            width: '28px',
+                            height: '28px',
+                            fontSize: '0.8rem'
+                          } : {})
+                        }}
+                      >
+                        2
+                      </div>
+                      <div className="step-content">
+                        <h4 style={isMobile ? { fontSize: '0.9rem', margin: '0' } : {}}>
+                          Design Execution
+                        </h4>
+                        {!isMobile && <p>Digital design, typography, and color scheme refinement</p>}
+                      </div>
                     </div>
-                  </div>
-                  <div className="process-step">
-                    <div className="step-number" style={{ backgroundColor: designs[activeIndex].color }}>3</div>
-                    <div className="step-content">
-                      <h4>Final Delivery</h4>
-                      <p>Asset preparation, client review, and final adjustments</p>
+                    <div 
+                      className="process-step"
+                      style={isMobile ? {
+                        padding: '10px',
+                        gap: '10px',
+                        marginBottom: '5px'
+                      } : {}}
+                    >
+                      <div 
+                        className="step-number" 
+                        style={{ 
+                          backgroundColor: designs[activeIndex].color,
+                          ...(isMobile ? {
+                            width: '28px',
+                            height: '28px',
+                            fontSize: '0.8rem'
+                          } : {})
+                        }}
+                      >
+                        3
+                      </div>
+                      <div className="step-content">
+                        <h4 style={isMobile ? { fontSize: '0.9rem', margin: '0' } : {}}>
+                          Final Delivery
+                        </h4>
+                        {!isMobile && <p>Asset preparation, client review, and final adjustments</p>}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -237,7 +368,7 @@ const DesignPortfolio = () => {
                     <div className="preview-meta">
                       <div className="meta-columns">
                         <div className="color-palette">
-                          <h4>Color Palette</h4>
+                          <h4 style={isMobile ? { fontSize: '0.9rem' } : {}}>Color Palette</h4>
                           <div className="colors">
                             <div className="color-sample" style={{ backgroundColor: designs[activeIndex].color }} />
                             <div className="color-sample" style={{ backgroundColor: `${designs[activeIndex].color}80` }} />
@@ -248,11 +379,26 @@ const DesignPortfolio = () => {
                         </div>
                         
                         <div className="software-used">
-                          <h4>Software Used</h4>
+                          <h4 style={isMobile ? { fontSize: '0.9rem' } : {}}>Software Used</h4>
                           <div className="software-icons">
-                            <span className="software-icon">Illustrator</span>
-                            <span className="software-icon">Photoshop</span>
-                            <span className="software-icon">InDesign</span>
+                            <span 
+                              className="software-icon" 
+                              style={isMobile ? { fontSize: '0.8rem', padding: '6px 12px' } : {}}
+                            >
+                              Illustrator
+                            </span>
+                            <span 
+                              className="software-icon" 
+                              style={isMobile ? { fontSize: '0.8rem', padding: '6px 12px' } : {}}
+                            >
+                              Photoshop
+                            </span>
+                            <span 
+                              className="software-icon" 
+                              style={isMobile ? { fontSize: '0.8rem', padding: '6px 12px' } : {}}
+                            >
+                              InDesign
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -260,14 +406,7 @@ const DesignPortfolio = () => {
                   </div>
                 </div>
                 
-                {/* Sample Images Section - Now on the right side */}
                 <div className="sample-images-sidebar">
-                  {/* <h3 className="section-title">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style={{ marginRight: '10px' }}>
-                      <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" fill={designs[activeIndex].color}/>
-                    </svg>
-                    Sample Variations
-                  </h3> */}
                   <div className="sample-images-vertical">
                     {designs[activeIndex].sampleImages.map((sample, index) => (
                       <div key={index} className="sample-image-item">
@@ -285,23 +424,47 @@ const DesignPortfolio = () => {
                 </div>
               </div>
               
-              <div className="preview-navigation">
+              {/* UPDATED: Navigation buttons - side by side on mobile */}
+              <div 
+                className="preview-navigation"
+                style={isMobile ? {
+                  display: 'flex',
+                  flexDirection: 'row',
+                  gap: '10px',
+                  justifyContent: 'center',
+                  marginTop: '20px'
+                } : {}}
+              >
                 <button 
                   className="preview-nav prev"
                   onClick={handlePrevious}
                   disabled={isAnimating}
+                  style={isMobile ? { 
+                    fontSize: '0.85rem', 
+                    padding: '12px 15px',
+                    flex: '1',
+                    marginLeft: '0',
+                    justifyContent: 'center'
+                  } : {}}
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{ marginRight: '8px' }}>
                     <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
-                  Previous Project
+                  Previous
                 </button>
                 <button 
                   className="preview-nav next"
                   onClick={handleNext}
                   disabled={isAnimating}
+                  style={isMobile ? { 
+                    fontSize: '0.85rem', 
+                    padding: '12px 15px',
+                    flex: '1',
+                    marginLeft: '0',
+                    justifyContent: 'center'
+                  } : {}}
                 >
-                  Next Project
+                  Next
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{ marginLeft: '8px' }}>
                     <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
