@@ -33,7 +33,7 @@
 /* Sticky Thumbnails Container */
 .three-products-container {
   position: sticky;
-  top: 100px;
+  top: 80px;
   z-index: 100;
   padding: 15px 0;
   margin: 0;
