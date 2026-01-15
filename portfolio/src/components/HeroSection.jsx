@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import '../styles/hero.css';
+import Profile from '../assets/profile.png'; 
 
 const HeroSection = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -99,7 +100,7 @@ const HeroSection = () => {
           <div className="hero-avatar">
             <div className="avatar-container">
               <img 
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400"
+                src={Profile}
                 alt="Ezekiel Labay"
                 className="avatar-image"
               />

@@ -1,38 +1,46 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../styles/portfolio.css';
+import Kcafe1 from '../assets/Kcafe1.png';
+import Kcafe2 from '../assets/Kcafe2.png';
+import Kcafe3 from '../assets/Kcafe3.png';
+import KVillas1 from '../assets/KVillas1.png';
+import KVillas2 from '../assets/KVillas2.png';
+import KVillas3 from '../assets/KVillas3.png';
 
 const DesignPortfolio = () => {
   const [designs, setDesigns] = useState([
     {
       id: 1,
-      title: "Music Festival Poster",
+      title: "Kavanah Villas",
       category: "Poster Design",
       description: "Vibrant poster design for a summer music festival featuring bold typography and energetic color palette. Created for Sunset Sounds Festival to capture the energy of live music events.",
-      image: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800",
-      thumbnail: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=400",
-      color: "#FF6B6B",
+      image: KVillas1,
+      thumbnail: KVillas1,
+      color: "#4e7539",
+      colorPalette: ["#183e23", "#a98938", "#ffffff", "#000000"], // Added color palette
       year: "2023",
       client: "Sunset Sounds Festival",
       deliverables: ["Main Poster", "Social Media Assets", "Merchandise Design"],
       sampleImages: [
-        "https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=400",
-        "https://images.unsplash.com/photo-1542744095-291d1f67b221?w=400",
+        KVillas2,
+        KVillas3,
       ]
     },
     {
       id: 2,
-      title: "Coffee Brand Identity",
+      title: "Kavanah Cafe & Restaurant",
       category: "Branding",
       description: "Complete brand identity for artisanal coffee shop including logo, packaging, and store signage. Focused on creating a warm, inviting atmosphere through design.",
-      image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800",
-      thumbnail: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400",
-      color: "#8B4513",
+      image: Kcafe1,
+      thumbnail: Kcafe1,
+      color: "#4e7539",
+      colorPalette: ["#4e7539", "#004732", "#f1831f", "#fdf6e9", "#FFFFFF"], // Added color palette
       year: "2024",
       client: "Brew & Co.",
       deliverables: ["Logo Design", "Packaging System", "Menu Design"],
       sampleImages: [
-        "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=400",
-        "https://images.unsplash.com/photo-1556228578-9c360e5d0c80?w=400",
+        Kcafe2,
+        Kcafe3,
       ]
     },
     {
@@ -43,6 +51,7 @@ const DesignPortfolio = () => {
       image: "https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?w=800",
       thumbnail: "https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?w=400",
       color: "#4ECDC4",
+      colorPalette: ["#4ECDC4", "#292F36", "#FF6B6B", "#F7FFF7", "#000000"], // Added color palette
       year: "2023",
       client: "TechForward Summit",
       deliverables: ["Conference Banner", "Speaker Cards", "Digital Invites"],
@@ -118,6 +127,16 @@ const DesignPortfolio = () => {
     handleSelect(prevIndex);
   };
 
+  // Function to get color from palette with fallback
+  const getColorFromPalette = (index, paletteIndex = 0) => {
+    const design = designs[index];
+    if (!design.colorPalette || design.colorPalette.length === 0) {
+      return design.color;
+    }
+    // Use the specified palette index, or the first color if index doesn't exist
+    return design.colorPalette[paletteIndex] || design.colorPalette[0] || design.color;
+  };
+
   return (
     <section className="portfolio-section" id="portfolio" ref={portfolioRef}>
       <div className="section-header">
@@ -140,7 +159,7 @@ const DesignPortfolio = () => {
                 key={design.id}
                 className={`product-thumbnail ${index === activeIndex ? 'active' : ''} ${isAnimating ? 'animating' : ''}`}
                 onClick={() => handleSelect(index)}
-                style={{ '--thumb-color': design.color }}
+                style={{ '--thumb-color': getColorFromPalette(index, 0) }}
               >
                 <div className="thumbnail-frame">
                   <div className="thumbnail-image-container">
@@ -151,7 +170,7 @@ const DesignPortfolio = () => {
                     />
                     <div className="thumbnail-overlay" />
                     {index === activeIndex && (
-                      <div className="thumbnail-active-indicator" style={{ backgroundColor: design.color }}>
+                      <div className="thumbnail-active-indicator" style={{ backgroundColor: getColorFromPalette(index, 0) }}>
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="white">
                           <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
                         </svg>
@@ -169,16 +188,12 @@ const DesignPortfolio = () => {
             <div className="design-details">
               <div className="details-header">
                 <div className="project-meta">
-                  <div className="meta-left">
-                    <span className="design-category" style={{ color: designs[activeIndex].color }}>
+                  {/* <div className="meta-left">
+                    <span className="design-category" style={{ color: getColorFromPalette(activeIndex, 0) }}>
                       {designs[activeIndex].category}
                     </span>
                     <span className="design-year">{designs[activeIndex].year}</span>
-                  </div>
-                  <div className="client-info">
-                    <span className="client-label">Client:</span>
-                    <span className="client-name">{designs[activeIndex].client}</span>
-                  </div>
+                  </div> */}
                 </div>
                 
                 <h2 className="design-title" style={isMobile ? { fontSize: '2rem' } : {}}>
@@ -205,13 +220,13 @@ const DesignPortfolio = () => {
                     margin: '0'
                   } : {}}
                 >
-                  <h3 
+                  {/* <h3 
                     className="section-title"
                     style={isMobile ? { fontSize: '1.1rem' } : {}}
                   >
                     Project Deliverables
-                  </h3>
-                  <div 
+                  </h3> */}
+                  {/* <div 
                     className="deliverables-grid"
                     style={isMobile ? {
                       display: 'grid',
@@ -224,8 +239,8 @@ const DesignPortfolio = () => {
                         key={index} 
                         className="deliverable-item"
                         style={{ 
-                          borderLeftColor: designs[activeIndex].color,
-                          backgroundColor: `${designs[activeIndex].color}10`,
+                          borderLeftColor: getColorFromPalette(activeIndex, 0),
+                          backgroundColor: `${getColorFromPalette(activeIndex, 0)}10`,
                           ...(isMobile ? {
                             padding: '10px 12px',
                             fontSize: '0.8rem',
@@ -233,13 +248,13 @@ const DesignPortfolio = () => {
                           } : {})
                         }}
                       >
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{ marginRight: '10px', color: designs[activeIndex].color }}>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{ marginRight: '10px', color: getColorFromPalette(activeIndex, 0) }}>
                           <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="currentColor"/>
                         </svg>
                         {item}
                       </div>
                     ))}
-                  </div>
+                  </div> */}
                 </div>
                 
                 <div 
@@ -274,7 +289,7 @@ const DesignPortfolio = () => {
                       <div 
                         className="step-number" 
                         style={{ 
-                          backgroundColor: designs[activeIndex].color,
+                          backgroundColor: getColorFromPalette(activeIndex, 0),
                           ...(isMobile ? {
                             width: '28px',
                             height: '28px',
@@ -288,7 +303,7 @@ const DesignPortfolio = () => {
                         <h4 style={isMobile ? { fontSize: '0.9rem', margin: '0' } : {}}>
                           Concept Development
                         </h4>
-                        {!isMobile && <p>Research, mood boards, and initial concept sketches</p>}
+                        {!isMobile && <p>Marketing calendar with initial concept designs and references</p>}
                       </div>
                     </div>
                     <div 
@@ -302,7 +317,7 @@ const DesignPortfolio = () => {
                       <div 
                         className="step-number" 
                         style={{ 
-                          backgroundColor: designs[activeIndex].color,
+                          backgroundColor: getColorFromPalette(activeIndex, 1) || getColorFromPalette(activeIndex, 0),
                           ...(isMobile ? {
                             width: '28px',
                             height: '28px',
@@ -330,7 +345,7 @@ const DesignPortfolio = () => {
                       <div 
                         className="step-number" 
                         style={{ 
-                          backgroundColor: designs[activeIndex].color,
+                          backgroundColor: getColorFromPalette(activeIndex, 2) || getColorFromPalette(activeIndex, 0),
                           ...(isMobile ? {
                             width: '28px',
                             height: '28px',
@@ -344,7 +359,7 @@ const DesignPortfolio = () => {
                         <h4 style={isMobile ? { fontSize: '0.9rem', margin: '0' } : {}}>
                           Final Delivery
                         </h4>
-                        {!isMobile && <p>Asset preparation, client review, and final adjustments</p>}
+                        {!isMobile && <p>Asset preparation, Review, and Final adjustments</p>}
                       </div>
                     </div>
                   </div>
@@ -362,7 +377,7 @@ const DesignPortfolio = () => {
                         alt={designs[activeIndex].title}
                         className="preview-image"
                       />
-                      <div className="preview-overlay" style={{ background: `linear-gradient(45deg, ${designs[activeIndex].color}15, transparent)` }} />
+                      <div className="preview-overlay" style={{ background: `linear-gradient(45deg, ${getColorFromPalette(activeIndex, 0)}15, transparent)` }} />
                     </div>
                     
                     <div className="preview-meta">
@@ -370,11 +385,25 @@ const DesignPortfolio = () => {
                         <div className="color-palette">
                           <h4 style={isMobile ? { fontSize: '0.9rem' } : {}}>Color Palette</h4>
                           <div className="colors">
-                            <div className="color-sample" style={{ backgroundColor: designs[activeIndex].color }} />
-                            <div className="color-sample" style={{ backgroundColor: `${designs[activeIndex].color}80` }} />
-                            <div className="color-sample" style={{ backgroundColor: `${designs[activeIndex].color}40` }} />
-                            <div className="color-sample" style={{ backgroundColor: '#FFFFFF' }} />
-                            <div className="color-sample" style={{ backgroundColor: '#000000' }} />
+                            {/* Dynamic color palette rendering */}
+                            {designs[activeIndex].colorPalette && designs[activeIndex].colorPalette.map((color, index) => (
+                              <div 
+                                key={index} 
+                                className="color-sample" 
+                                style={{ backgroundColor: color }}
+                                title={color}
+                              />
+                            ))}
+                            {/* Fallback if no colorPalette is defined */}
+                            {(!designs[activeIndex].colorPalette || designs[activeIndex].colorPalette.length === 0) && (
+                              <>
+                                <div className="color-sample" style={{ backgroundColor: designs[activeIndex].color }} />
+                                <div className="color-sample" style={{ backgroundColor: `${designs[activeIndex].color}80` }} />
+                                <div className="color-sample" style={{ backgroundColor: `${designs[activeIndex].color}40` }} />
+                                <div className="color-sample" style={{ backgroundColor: '#FFFFFF' }} />
+                                <div className="color-sample" style={{ backgroundColor: '#000000' }} />
+                              </>
+                            )}
                           </div>
                         </div>
                         
@@ -415,7 +444,7 @@ const DesignPortfolio = () => {
                           alt={`Sample ${index + 1}`}
                           className="sample-image"
                         />
-                        <div className="sample-overlay" style={{ backgroundColor: `${designs[activeIndex].color}15` }}>
+                        <div className="sample-overlay" style={{ backgroundColor: `${getColorFromPalette(activeIndex, 0)}15` }}>
                           <span className="sample-label">Sample {index + 1}</span>
                         </div>
                       </div>
@@ -424,7 +453,6 @@ const DesignPortfolio = () => {
                 </div>
               </div>
               
-              {/* UPDATED: Navigation buttons - side by side on mobile */}
               <div 
                 className="preview-navigation"
                 style={isMobile ? {
