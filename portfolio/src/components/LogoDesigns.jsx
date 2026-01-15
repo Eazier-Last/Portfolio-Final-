@@ -28,11 +28,10 @@ const LogoDesigns = () => {
         weights: ["Light", "Regular", "Medium", "SemiBold", "Bold"]
       },
       colorPalette: [
-        { name: "Primary Blue", value: "#4361EE" },
-        { name: "Dark Blue", value: "#2A3EB1" },
-        { name: "Light Blue", value: "#7B8EFF" },
-        { name: "Neutral Gray", value: "#4A5568" },
-        { name: "White", value: "#FFFFFF" }
+        { value: "#ed97ab" },
+        { value: "#ffffff" },
+        { value: "#000000" },
+        
       ]
     },
     {
@@ -518,9 +517,9 @@ const LogoDesigns = () => {
 
                 <div className="mockups-section">
                   <h3 className="section-title" style={isMobile ? { fontSize: '1.1rem' } : {}}>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style={{ marginRight: '10px' }}>
+                    {/* <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style={{ marginRight: '10px' }}>
                       <path d="M21 16V4c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zm-2 0H5V4h14v12zm-7-1c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z" fill={getColorFromPalette(activeLogoIndex, 0)}/>
-                    </svg>
+                    </svg> */}
                     Logo Mockups
                   </h3>
                   <div className="mockups-grid">

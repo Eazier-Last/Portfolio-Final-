@@ -34,7 +34,7 @@ const DesignPortfolio = () => {
       image: Kcafe1,
       thumbnail: Kcafe1,
       color: "#4e7539",
-      colorPalette: ["#4e7539", "#004732", "#f1831f", "#fdf6e9", "#FFFFFF"], // Added color palette
+      colorPalette: ["#f1831f", "#4e7539", "#004732",  "#fdf6e9", "#FFFFFF"], // Added color palette
       year: "2024",
       client: "Brew & Co.",
       deliverables: ["Logo Design", "Packaging System", "Menu Design"],
@@ -410,24 +410,24 @@ const DesignPortfolio = () => {
                         <div className="software-used">
                           <h4 style={isMobile ? { fontSize: '0.9rem' } : {}}>Software Used</h4>
                           <div className="software-icons">
-                            <span 
+                            {/* <span 
                               className="software-icon" 
                               style={isMobile ? { fontSize: '0.8rem', padding: '6px 12px' } : {}}
                             >
                               Illustrator
-                            </span>
+                            </span> */}
                             <span 
                               className="software-icon" 
                               style={isMobile ? { fontSize: '0.8rem', padding: '6px 12px' } : {}}
                             >
                               Photoshop
                             </span>
-                            <span 
+                            {/* <span 
                               className="software-icon" 
                               style={isMobile ? { fontSize: '0.8rem', padding: '6px 12px' } : {}}
                             >
                               InDesign
-                            </span>
+                            </span> */}
                           </div>
                         </div>
                       </div>
